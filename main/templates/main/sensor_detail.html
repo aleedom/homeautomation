@@ -1,0 +1,11 @@
+{% if temp_list %}
+	
+	{% for temp in temp_list %}
+		<p>{{temp.temperature}} - {{temp.timestamp}}</p>
+	{% endfor %}
+	
+{% else %}
+	<p>No temperatures are available</p>
+{% endif %}
+
+
