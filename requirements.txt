@@ -1,0 +1,11 @@
+Django==1.7.4
+Pibrella==1.2
+Pillow==2.7.0
+RPi.GPIO==0.5.11
+argparse==1.2.1
+distribute==0.6.24
+django-braces==1.4.0
+djangorestframework==3.0.5
+requests==2.5.3
+six==1.9.0
+wsgiref==0.1.2
