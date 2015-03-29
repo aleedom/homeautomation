@@ -4,9 +4,9 @@ import os, serial, time
 #.../tempsensor				get/post
 #.../tempsensor/(serial#)	get/put/delete
 #.../temperature/(serial#)	get/post
-base_url = "http://192.168.1.131:9000/api/"
+base_url = "http://192.168.1.122:9000/api/"
 headers = {'content-type': 'application/json'}
-ser = serial.Serial('/dev/ttyAmA0',9600, timeout=0, writeTimeout=0)
+ser = serial.Serial('/dev/ttyAMA0',9600, timeout=0, writeTimeout=0)
 
 def addsensortodb(sensor):
 	url = base_url+"tempsensor"
@@ -17,7 +17,7 @@ def addsensortodb(sensor):
 def addtemptodb(serial, temp):
     url = base_url+"temperature/"+serial
     payload = {'serial':serial, 'temperature':round(temp,3), 'timestamp':str(datetime.datetime.now())}
-    r = requests.post(url, data=json.dumps(payload), headers={'content-type': 'application/json'}
+    return requests.post(url, data=json.dumps(payload), headers={'content-type': 'application/json'})
 
 
 #get current devices in database
@@ -49,13 +49,13 @@ while True:
             if serialnum not in dbsensors:
                 addsensortodb(serialnum)
                 print("added %s to databse" %serialnum)
-
+                dbsensors.append(serialnum)
             sourceethi = ser.read(1)
-            sourcenetlo = ser.read(1)a
+            sourcenetlo = ser.read(1)
             junk = ser.read(5)
             volthi = ord(ser.read(1))
             voltlo = ord(ser.read(1))
-            volt = voltlo+(volthi(*256)
+            volt = voltlo+(volthi*256)
             tempc = ((volt/1023.*1.2 -.5)*100)
             tempf = tempc*(9/5.)+32
             addtemptodb(serialnum, tempf)
