@@ -5,7 +5,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'homeautomation.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-	url(r'^api/', include('api.urls')),
 	url(r'^main/',include('main.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+	url(r'^api/', include('api.urls')),
+        url(r'^admin/', include(admin.site.urls)),
 )
