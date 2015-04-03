@@ -1,7 +1,11 @@
 from django.shortcuts import render
 
+from django.http import HttpResponse
+
 from main.models import Tsensor, Temperature
 
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
 
 def list_sensors(request):
 	sensor_list = Tsensor.objects.all()
