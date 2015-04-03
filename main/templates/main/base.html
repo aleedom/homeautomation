@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>1WD HTML5 theme</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+
+	<link rel="stylesheet" href= "{% static "main/style.css"%}" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body class="body">
+	
+	<header class="mainHeader">
+		<nav><ul>
+			<li class="active"><a href="#">Home</a></li>
+			<li><a href="#">Rooms</a></li>
+			<li><a href="#">Blog</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul></nav>
+	</header>
+		
+	<div class="mainContent">
+		<div class="content">	
+			{% block content }
+			{% endblock %}
+		</div>
+	</div>
+	
+	<footer class="mainFooter">
+		<p>Copyright &copy; 2015 <a href="http://github.com/aleedom/homeautomation">Andy Leedom</a></p>
+	</footer>
+
+</body>
+</html>
