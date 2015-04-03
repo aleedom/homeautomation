@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from main.models import Tsensor, Temperature
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    context = {'name':'Andy'}
+    return render(request, 'main/index.html',context) 
 
 def list_sensors(request):
 	sensor_list = Tsensor.objects.all()
