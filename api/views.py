@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from main.models import Tsensor, Temperature
+from main.models import Tsensor, Temperature, Room
 from api.serializers import TsensorSerializer, TemperatureSerializer
 
 
@@ -44,6 +44,11 @@ def Tsensor_detail(request, pk):
 
 	elif request.method == 'PUT':
 		serializer = TsensorSerializer(sensor, data=request.DATA)
+                #get the room associated with this sensor
+                #room = Room.objects.get(sensor=pk)
+
+                #if(room):
+
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data)
