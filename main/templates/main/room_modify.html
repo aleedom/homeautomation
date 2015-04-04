@@ -1,5 +1,12 @@
 {% extends "main/base.html"%}
-
+{% block main-nav %}
+	<nav><ul>
+		<li><a href="/">Home</a></li>
+		<li class="active"><a href="/rooms">Rooms</a></li>
+		<li><a href="#">Blog</a></li>
+		<li><a href="#">Contact</a></li>
+	</ul></nav>
+{% endblock %}
 {% block content %}
 <h1> Modify Room </h1>
 {% if message %}

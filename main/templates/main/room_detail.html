@@ -1,10 +1,17 @@
 {% extends "main/base.html" %}
-
+{% block main-nav %}
+	<nav><ul>
+		<li><a href="/">Home</a></li>
+		<li class="active"><a href="/rooms">Rooms</a></li>
+		<li><a href="#">Blog</a></li>
+		<li><a href="#">Contact</a></li>
+	</ul></nav>
+{% endblock %}
 {% block content %}
 	<h1> {{ room_name }} </h1>
-	<p><b><u>Current Temperature:</u></b> {{temp_current}}</p>
-	<p><b><u>Highest recorded Temperature:</u></b> {{temp_high}}</p>
-	<p><b><u>Lowest Recorded Temperature:</u></b> {{temp_low}}</p>
+	<p><b><u>Current Temperature:</u></b> {{temp_current}} {{temp_current_time}}</p>
+	<p><b><u>Highest recorded Temperature:</u></b> {{temp_high}} {{temp_high_time}}</p>
+	<p><b><u>Lowest Recorded Temperature:</u></b> {{temp_low}} {{temp_low_time}}</p>
 	<p><b><u>Sensor_id:</u></b> {{sensor_id}}</p>
 	<button type="button" onclick="location.href='/rooms/{{id}}/modify'">Modify</button>
 	<button type="button" onclick="location.href='/rooms/{{id}}/delete'">Delete</button>
