@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
-from main.models import Tsensor, Temperature
+from main.models import * 
 
 def index(request):
     context = {'name':'Andy'}
