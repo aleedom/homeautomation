@@ -1,0 +1,12 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+	<h1> {{ room_name }} </h1>
+	<p><b><u>Current Temperature:</u></b> {{temp_current}}</p>
+	<p><b><u>Highest recorded Temperature:</u></b> {{temp_high}}</p>
+	<p><b><u>Lowest Recorded Temperature:</u></b> {{temp_low}}</p>
+	<p><b><u>Sensor_id:</u></b> {{sensor_id}}</p>
+	<button type="button" onclick="location.href='/rooms/{{id}}/modify'">Modify</button>
+	<button type="button" onclick="location.href='/rooms/{{id}}/delete'">Delete</button>
+{% endblock %}
+

@@ -14,12 +14,14 @@
 <body class="body">
 	
 	<header class="mainHeader">
+		{% block main-nav %}
 		<nav><ul>
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="#">Rooms</a></li>
+			<li class="active"><a href="/">Home</a></li>
+			<li><a href="/rooms">Rooms</a></li>
 			<li><a href="#">Blog</a></li>
 			<li><a href="#">Contact</a></li>
 		</ul></nav>
+		{% endblock %}
 	</header>
 		
 	<div class="mainContent">

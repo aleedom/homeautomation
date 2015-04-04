@@ -1,0 +1,14 @@
+{% extends "main/base.html"%}
+
+{% block content %}
+<h1> Modify Room </h1>
+{% if message %}
+{{ message }}
+{% endif %}
+<div>
+	<form action="/rooms/{{id}}/modify" method="post">{%csrf_token%}
+		{{ form.as_p }}
+		<input type="submit" value="update" />
+	</form>
+</div>
+{% endblock %}

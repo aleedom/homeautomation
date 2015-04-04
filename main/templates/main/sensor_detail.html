@@ -1,3 +1,6 @@
+{% extends "main/base.html" %}
+
+{% block content %}
 {% if temp_list %}
 	
 	{% for temp in temp_list %}
@@ -7,5 +10,5 @@
 {% else %}
 	<p>No temperatures are available</p>
 {% endif %}
-
+{% endblock %}
 

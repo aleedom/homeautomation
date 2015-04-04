@@ -1,9 +1,13 @@
+{% extends "main/base.html" %}
+
+{% block content %}
 {% if sensor_list %}
 	<ul>
 	{% for sensor in sensor_list %}
-	<li><a href="/main/sensors/{{ sensor.serial }}">{{ sensor.serial }}</a></li>
+	<li><a href="/sensors/{{ sensor.serial }}">{{ sensor.serial }}</a></li>
 	{% endfor %}
 	</ul>
 {% else %}	
 	<p>No sensors are available</p>
 {% endif %}
+{% endblock %}
