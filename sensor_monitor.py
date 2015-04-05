@@ -6,7 +6,7 @@ import os, serial, time
 #.../temperature/(serial#)	get/post
 base_url = "http://192.168.1.122:8000/api/"
 headers = {'content-type': 'application/json'}
-ser = serial.Serial('/dev/ttyAmA0',9600, timeout=0, writeTimeout=0)
+#ser = serial.Serial('/dev/ttyAmA0',9600, timeout=0, writeTimeout=0)
 
 def addsensortodb(sensor):
 	url = base_url+"sensors"
@@ -20,13 +20,21 @@ def addtemptodb(serial, temp):
     #check if sensor is in a room
     url = base_url+"sensors/"+serial
     r = requests.get(url)
+    print(r.json())
     tmp = json.dumps(r.json())
+    print(tmp)
+    for i in tmp:
+        print(i,ord(i))
+    #tmp = tmp.replace('null','\'null\'')
 
+    #print(type(tmp))
+    #dict_list = ast.literal_eval(tmp)
+    #print(dict_list)
 
-    url = base_url+"temperature/"+serial
-    payload = {'serial':serial, 'temperature':round(temp,3), 'timestamp':str(datetime.datetime.now())}
-    r = requests.post(url, data=json.dumps(payload), headers={'content-type': 'application/json'}
-
+    #url = base_url+"temperature/"+serial
+    #payload = {'serial':serial, 'temperature':round(temp,3), 'timestamp':str(datetime.datetime.now())}
+    #r = requests.post(url, data=json.dumps(payload), headers={'content-type': 'application/json'}
+addtemptodb('0013a20040caacdd',25.6)
 
 #get current devices in database
 r = requests.get(base_url+"sensors")
@@ -59,12 +67,12 @@ while True:
                 print("added %s to databse" %serialnum)
 
             sourceethi = ser.read(1)
-            sourcenetlo = ser.read(1)a
+            sourcenetlo = ser.read(1)
             junk = ser.read(5)
             volthi = ord(ser.read(1))
             voltlo = ord(ser.read(1))
-            volt = voltlo+(volthi(*256)
-            tempc = ((volt/1023.*1.2 -.5)*100)
+            volt = voltlo+(volthi(*256))
+            tempc =((volt/1023.*1.2 -.5)*100)
             tempf = tempc*(9/5.)+32
             addtemptodb(serialnum, tempf)
 
