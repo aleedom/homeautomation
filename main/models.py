@@ -14,7 +14,8 @@ class Room(models.Model):
             return self.name
 
 class Sensor(models.Model):
-	serial = models.CharField(max_length=14,primary_key=True)
+	#serial number of the xbee which the actual sensor is attached to
+        serial = models.CharField(max_length=14,primary_key=True)
         room_id = models.ForeignKey('Room')
         def __unicode__(self):
             return self.serial
@@ -23,4 +24,5 @@ class Data(models.Model):
 	room_id = models.ForeignKey('Room')
 	data = models.DecimalField(max_digits=6,decimal_places=3)
 	time = models.DateTimeField()
+        #data can be temperature or humidty or other 1 = temperature 2 = humidity, others ahve not been created yet
         data_type = models.IntegerField(null=True, default=1)

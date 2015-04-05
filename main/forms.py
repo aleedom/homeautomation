@@ -5,4 +5,10 @@ from main.models import *
 class RoomForm(ModelForm):
     class Meta:
         model = Room
-        fields = ('name', 'sensor',)
+        fields = ('name',)
+
+class SensorForm(ModelForm):
+    class Meta:
+        model = Sensor
+        fields = ('room_id',)
+
