@@ -11,7 +11,7 @@
 <h1> Create A Room </h1>
 <div>
 	<form action="/rooms/create" method="post">{%csrf_token%}
-		
+		{{form.as_p}}
 		<input type="submit" value="Create" />
 	</form>
 </div>

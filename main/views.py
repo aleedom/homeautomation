@@ -49,9 +49,10 @@ def room_create(request):
     if request.method == "POST":
         
         form = RoomForm(request.POST)
+        print(request.POST['name'],request.POST['sensor_id'])
         if(form.is_valid()):
             form.save()
-            print(request.POST['name'])
+            print("valid")
             return redirect('/rooms')
     else:
         form = RoomForm()

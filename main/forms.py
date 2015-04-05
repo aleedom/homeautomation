@@ -7,6 +7,10 @@ class RoomForm(ModelForm):
         model = Room
         fields = ('name',)
 """
-class RoomForm(ModelForm):
-    name = forms.CharField(max_length=50)
-    sensor_id = forms.ModelChoiceField(empty_label="(Nothing"), to_field_name="serial")
+class RoomForm(forms.Form):
+    name = forms.CharField(
+            max_length=50)
+    sensor_id = forms.ModelChoiceField(
+            queryset=Sensor.objects.filter(room_id=None),
+            empty_label="No Sensor",
+            )
