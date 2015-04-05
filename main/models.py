@@ -2,7 +2,7 @@ from django.db import models
 
 	
 class Room(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50,unique=True)
         #historical high and low temps
         temperature_high = models.OneToOneField('Data',blank=True ,null=True, default=None, related_name='+')
         temperature_low = models.OneToOneField('Data',blank=True, null=True, default=None, related_name='+')
