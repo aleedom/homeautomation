@@ -4,12 +4,12 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from main.models import Tsensor, Temperature, Room
-from api.serializers import TsensorSerializer, TemperatureSerializer
+from main.models import * 
+from api.serializers import SensorSerializer, DataSerializer
 
 
 @api_view(['GET', 'POST'])
-def sensor_list(request):
+def Sensor_list(request):
 	"""
 	list all ,or create a new temperature sensor
 	"""
@@ -28,18 +28,18 @@ def sensor_list(request):
 					serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def sensor_detail(request, pk):
+def Sensor_detail(request, serial):
 	"""
 	Get, update, or delete a specific sensor
 	"""
 	sensor = {}
 	try:
-		sensor = Sensor.objects.get(pk=pk)
+		sensor = Sensor.objects.get(serial=serial)
 	except sensor.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
 
 	if request.method =='GET':
-		serializer = TsensorSerializer(sensor)
+		serializer = SensorSerializer(sensor)
 		return Response(serializer.data)
 
 	elif request.method == 'PUT':
@@ -49,33 +49,25 @@ def sensor_detail(request, pk):
 			serializer.save()
 			return Response(serializer.data)
 		else:
-			return Response(
-					serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+			return Response(serializer.errors, 
+                                status=status.HTTP_400_BAD_REQUEST)
 	elif request.method == 'DELETE':
 		sensor.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['GET','POST'])
-def Data_list(request, serial):
+@api_view(['POST'])
+def Data_post(request):
 	"""
-	Get all data from one sensor or Post new Temperature data
-	
-	try:
-		sensor = Tsensor.objects.get(pk=pk)
-	except sensor.DoesNotExist:
-		return Response(status=status.HTTP_404_NOT_FOUND)
-"""
-	if request.method == 'GET':
-		temps = Data.objects.filter(serial=serial)
-		serializer = TemperatureSerializer(temps, many=True)
-		return Response(serializer.data)
-
-	elif request.method == 'POST':
-		serializer = TemperatureSerializer(data=request.DATA)
+	Post new Temperature data
+        	
+        """
+	if request.method == 'POST':
+		serializer = DataSerializer(data=request.DATA)
 		if serializer.is_valid():
 			serializer.save()
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
+			return Response(serializer.data, 
+                                status=status.HTTP_201_CREATED)
 		else:
-			return Response(
-					serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+			return Response(serializer.errors, 
+                                status=status.HTTP_400_BAD_REQUEST)
