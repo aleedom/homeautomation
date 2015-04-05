@@ -6,7 +6,7 @@ import os, serial, time
 #.../temperature/(serial#)	get/post
 base_url = "http://192.168.1.122:8000/api/"
 headers = {'content-type': 'application/json'}
-ser = serial.Serial('/dev/ttyAmA0',9600, timeout=0, writeTimeout=0)
+ser = serial.Serial('/dev/ttyAMA0',9600, timeout=0, writeTimeout=0)
 
 def addsensortodb(sensor):
 	url = base_url+"sensors"
@@ -16,7 +16,7 @@ def addsensortodb(sensor):
 
 def addtemptodb(serial, temp):
     #only add data to database if the sensor we got data from is associated with a room
-    
+    print("Adding to db",serial,temp)
     #check if sensor is in a room
     url = base_url+"sensors/"+serial
     r = requests.get(url)
@@ -35,8 +35,10 @@ def addtemptodb(serial, temp):
 
 #get current devices in database
 r = requests.get(base_url+"sensors")
-temp = json.dumps(r.json())
-dict_list = ast.literal_eval(temp)
+tmp = json.dumps(r.json())
+tmp = tmp.replace('null','\"null\"')
+print(tmp)
+dict_list = ast.literal_eval(tmp)
 dbsensors = []
 for dict in dict_list:
     dbsensors.append(dict['serial'])
@@ -46,11 +48,14 @@ print("Sensors in database: ",dbsensors)
 #xbee read push loop
 while True:
     #wait until full packet(dont know why 21 bytes)
+    #print(ser.inWaiting())
     if ser.inWaiting() >= 21:
         #ord() converts a char byte into int()
         firstbyte = ord(ser.read(1))
+        print("first byte: ",hex(firstbyte))
         #value packets start with 0x7e
         if firstbyte == 0x7e:
+            print("first byte is good")
             lengthhi = ser.read(1)
             lengthlo = ser.read(1)
             frametype = ser.read(1)
@@ -58,10 +63,10 @@ while True:
             serialnum = ""
             for i in sourcemac:
                 serialnum += hex(ord(i))[2:]
-
+            print(serialnum)
             if serialnum not in dbsensors:
-                addsensortodb(serialnum)
                 print("added %s to databse" %serialnum)
+                addsensortodb(serialnum)
 
             sourceethi = ser.read(1)
             sourcenetlo = ser.read(1)
