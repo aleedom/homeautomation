@@ -9,17 +9,17 @@ from api.serializers import TsensorSerializer, TemperatureSerializer
 
 
 @api_view(['GET', 'POST'])
-def Tsensor_list(request):
+def sensor_list(request):
 	"""
 	list all ,or create a new temperature sensor
 	"""
 	if request.method == 'GET':
-		sensors = Tsensor.objects.all()
-		serializer = TsensorSerializer(sensors, many=True)
+		sensors = Sensor.objects.all()
+		serializer = SensorSerializer(sensors, many=True)
 		return Response(serializer.data)
 
 	elif request.method == 'POST':
-		serializer = TsensorSerializer(data=request.DATA)
+		serializer = SensorSerializer(data=request.DATA)
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -28,13 +28,13 @@ def Tsensor_list(request):
 					serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def Tsensor_detail(request, pk):
+def sensor_detail(request, pk):
 	"""
 	Get, update, or delete a specific sensor
 	"""
 	sensor = {}
 	try:
-		sensor = Tsensor.objects.get(pk=pk)
+		sensor = Sensor.objects.get(pk=pk)
 	except sensor.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -43,11 +43,7 @@ def Tsensor_detail(request, pk):
 		return Response(serializer.data)
 
 	elif request.method == 'PUT':
-		serializer = TsensorSerializer(sensor, data=request.DATA)
-                #get the room associated with this sensor
-                #room = Room.objects.get(sensor=pk)
-
-                #if(room):
+		serializer = SensorSerializer(sensor, data=request.DATA)
 
 		if serializer.is_valid():
 			serializer.save()
@@ -61,7 +57,7 @@ def Tsensor_detail(request, pk):
 
 
 @api_view(['GET','POST'])
-def Temperature_list(request, serial):
+def Data_list(request, serial):
 	"""
 	Get all data from one sensor or Post new Temperature data
 	
@@ -71,7 +67,7 @@ def Temperature_list(request, serial):
 		return Response(status=status.HTTP_404_NOT_FOUND)
 """
 	if request.method == 'GET':
-		temps = Temperature.objects.filter(serial=serial)
+		temps = Data.objects.filter(serial=serial)
 		serializer = TemperatureSerializer(temps, many=True)
 		return Response(serializer.data)
 
