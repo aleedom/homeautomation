@@ -6,7 +6,7 @@ import os, serial, time
 #.../temperature/(serial#)	get/post
 base_url = "http://192.168.1.122:8000/api/"
 headers = {'content-type': 'application/json'}
-#ser = serial.Serial('/dev/ttyAmA0',9600, timeout=0, writeTimeout=0)
+ser = serial.Serial('/dev/ttyAmA0',9600, timeout=0, writeTimeout=0)
 
 def addsensortodb(sensor):
 	url = base_url+"sensors"
@@ -20,21 +20,18 @@ def addtemptodb(serial, temp):
     #check if sensor is in a room
     url = base_url+"sensors/"+serial
     r = requests.get(url)
-    print(r.json())
     tmp = json.dumps(r.json())
-    print(tmp)
-    for i in tmp:
-        print(i,ord(i))
-    #tmp = tmp.replace('null','\'null\'')
-
-    #print(type(tmp))
-    #dict_list = ast.literal_eval(tmp)
-    #print(dict_list)
-
-    #url = base_url+"temperature/"+serial
-    #payload = {'serial':serial, 'temperature':round(temp,3), 'timestamp':str(datetime.datetime.now())}
-    #r = requests.post(url, data=json.dumps(payload), headers={'content-type': 'application/json'}
-addtemptodb('0013a20040caacdd',25.6)
+    tmp = tmp.replace('null','\"null\"')
+    dict_list = ast.literal_eval(tmp)
+    print(dict_list)
+    
+    if dict_list['room_id'] == "null":
+        print("room has no id")
+    else:
+        url = base_url+"data"
+        payload = {'serial':serial, 'temperature':round(temp,3), 'timestamp':str(datetime.datetime.now())}
+        print("payload:",payload)
+        #r = requests.post(url, data=json.dumps(payload), headers={'content-type': 'application/json'})
 
 #get current devices in database
 r = requests.get(base_url+"sensors")
