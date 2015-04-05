@@ -1,15 +1,16 @@
 from rest_framework import serializers
 
-from main.models import Tsensor,Temperature
+from main.models import *
 
 
-class TsensorSerializer(serializers.ModelSerializer):
+class SensorSerializer(serializers.ModelSerializer):
 	
 	class Meta:
-		model = Tsensor
+		model = Sensor
+                fields = ('serial')
 
-class TemperatureSerializer(serializers.ModelSerializer):
+class DataSerializer(serializers.ModelSerializer):
 
 	class Meta:
-		 model = Temperature
-		 fields = ('temperature', 'serial', 'timestamp')
+		 model = Data
+		 fields = ('room_id','data','time','data_type')
