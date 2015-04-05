@@ -6,7 +6,7 @@ import os, serial, time
 #.../temperature/(serial#)	get/post
 base_url = "http://192.168.1.122:8000/api/"
 headers = {'content-type': 'application/json'}
-ser = serial.Serial('/dev/ttyAMA0',9600, timeout=0, writeTimeout=0)
+ser = serial.Serial('/dev/ttyUSB0',9600, timeout=0, writeTimeout=0)
 
 def addsensortodb(sensor):
 	url = base_url+"sensors"
@@ -52,10 +52,10 @@ while True:
     if ser.inWaiting() >= 21:
         #ord() converts a char byte into int()
         firstbyte = ord(ser.read(1))
-        print("first byte: ",hex(firstbyte))
+        #print("first byte: ",hex(firstbyte))
         #value packets start with 0x7e
         if firstbyte == 0x7e:
-            print("first byte is good")
+            #print("first byte is good")
             lengthhi = ser.read(1)
             lengthlo = ser.read(1)
             frametype = ser.read(1)
@@ -73,8 +73,8 @@ while True:
             junk = ser.read(5)
             volthi = ord(ser.read(1))
             voltlo = ord(ser.read(1))
-            volt = voltlo+(volthi(*256))
+            volt = voltlo+(volthi*256)
             tempc =((volt/1023.*1.2 -.5)*100)
             tempf = tempc*(9/5.)+32
-            addtemptodb(serialnum, tempf)
+            addtemptodb(serialnum, round(tempf,1))
 
