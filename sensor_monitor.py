@@ -15,6 +15,11 @@ def addsensortodb(sensor):
 	return requests.post(url, data=json.dumps(payload), headers = headers)
 
 def addtemptodb(serial, temp):
+    #only add data to database if the sensor we got data from is associated with a room
+    
+    #check if sensor is in a room
+    url = base_url+`
+
     url = base_url+"temperature/"+serial
     payload = {'serial':serial, 'temperature':round(temp,3), 'timestamp':str(datetime.datetime.now())}
     r = requests.post(url, data=json.dumps(payload), headers={'content-type': 'application/json'}
