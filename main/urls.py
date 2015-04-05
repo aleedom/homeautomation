@@ -10,6 +10,4 @@ urlpatterns = patterns('main.views',
                 url(r'^rooms/(?P<id>[0-9]+)$', 'room_detail', name='room_detail'),
                 url(r'^rooms/(?P<id>[0-9]+)/modify$', 'room_modify', name='room_modify'),
                 url(r'^rooms/(?P<id>[0-9]+)/delete$', 'room_delete', name='room_delete'),
-                
-                #sensorurls
 )

@@ -16,7 +16,11 @@ class Room(models.Model):
 class Sensor(models.Model):
 	#serial number of the xbee which the actual sensor is attached to
         serial = models.CharField(max_length=16,primary_key=True)
-        room_id = models.ForeignKey('Room', null=True,blank=True, default=None)
+        room_id = models.ForeignKey('Room',
+                null=True,
+                blank=True,
+                default=None,
+                on_delete=models.SET_NULL)
         def __unicode__(self):
             return self.serial
 

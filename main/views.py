@@ -37,8 +37,11 @@ def room_detail(request,id):
             context['temp_current_time'] = room.temperature_current.time
         else:
             context['temp_current'] = "Current temperature not available"
-        
-        sensor = Sensor.objects.get(room_id=id)
+        try:
+            sensor = Sensor.objects.get(room_id=room)
+        except:
+            sensor = False
+            print("failed to find sensor with room_id")
         if sensor:
             context['sensor_id'] = sensor.serial
         else:
@@ -51,9 +54,22 @@ def room_create(request):
         form = RoomForm(request.POST)
         print(request.POST['name'],request.POST['sensor_id'])
         if(form.is_valid()):
-            form.save()
-            print("valid")
-            return redirect('/rooms')
+            new_room = Room(
+                    name=request.POST['name'],
+                    temperature_high=None, 
+                    temperature_low=None, 
+                    temperature_current=None,
+                    humidity_current = None,
+                    vent_state=None
+                    )
+            new_room.save()
+            if request.POST['sensor_id'] == None:
+                return redirect('/rooms') 
+            else:
+                sensor = Sensor.objects.get(serial=request.POST['sensor_id'])
+                sensor.room_id = new_room
+                sensor.save()
+                return redirect('/rooms')
     else:
         form = RoomForm()
         return render_to_response('main/room_create.html',
@@ -72,15 +88,14 @@ def room_modify(request,id):
         context_instance=RequestContext(request))
 
 def room_delete(request,id):
-    instance = get_object_or_404(Room, id=id).delete()
+    instance = get_object_or_404(Room, id=id)
+    try:
+        sensor = Sensor.objects.get(room_id=instance)
+        if sensor:
+            sensor.room_id = None
+    except:
+        print("no sensor associated with that room")
+    instance.delete()
+    
     return redirect('main.views.room_list')
 
-#def sensor_list(request):
-#	sensor_list = Sensor.objects.all()
-#	context = {'sensor_list': sensor_list}
-#	return render(request, 'main/sensor_list.html', context)
-
-#def sensor_detail(request, serial):
-#	temp_list = Data.objects.filter(serial=serial)
-#	context = {'temp_list':temp_list}
-#	return render(request, 'main/sensor_detail.html', context)
