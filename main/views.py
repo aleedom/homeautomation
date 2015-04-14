@@ -77,25 +77,44 @@ def room_create(request):
                 context_instance=RequestContext(request))
 
 def room_modify(request,id):
-    instance = get_object_or_404(Room, id=id)
-    form = RoomForm(request.POST or None, instance=instance)
+    room_instance = get_object_or_404(Room, id=id)
+    form = RoomForm(request.POST or None)
+    #if request.POST:
+    #    form.fields['name'] = request.POST['name']
+    #else:
+    #    form.fields['name'] = instance.name
+
     if form.is_valid():
-        form.save()
+        #first check ot see if the serial was changed
+        print("old,new",form.fields['sensor_id'],room_instance.serial)
+        if form.fields['sensor_id'] ==  room_instance.serial:
+            print("Sensor did not change")
+        else:
+            print("Sensor changed")
+        
+        room_instance.name = form.name
+        #room_instance.save()
+        if request.POST['sensor_id'] == None:
+            return redirect('/rooms')
+        else:
+            sensor = Sensor.objects.get(serial=request.POST['sensor_id'])
+            sensor.room_id = new_
+        #form.save()
         return redirect('main.views.room_detail',id)
 
     return render_to_response('main/room_modify.html',
-            {'form':form, 'id':id},
+            {'form':form, 'id':id, 'prev_name':room_instance.name},
         context_instance=RequestContext(request))
 
 def room_delete(request,id):
-    instance = get_object_or_404(Room, id=id)
+    room_instance = get_object_or_404(Room, id=id)
     try:
-        sensor = Sensor.objects.get(room_id=instance)
+        sensor = Sensor.objects.get(room_id=room_instance)
         if sensor:
             sensor.room_id = None
     except:
         print("no sensor associated with that room")
-    instance.delete()
+    room_instance.delete()
     
     return redirect('main.views.room_list')
 
