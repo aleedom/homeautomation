@@ -8,10 +8,11 @@ class RoomForm(ModelForm):
         fields = ('name',)
 """
 class RoomForm(forms.Form):
-    name = forms.CharField(
-            max_length=50)
     sensor_id = forms.ModelChoiceField(
             queryset=Sensor.objects.filter(room_id=None),
             empty_label="No Sensor",
             required=False,
             )
+    class Meta:
+        model = Room
+        fields = ('name',)
