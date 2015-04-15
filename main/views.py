@@ -41,7 +41,7 @@ def room_detail(request,id):
             sensor = Sensor.objects.get(room_id=room)
         except:
             sensor = False
-            print("failed to find sensor with room_id")
+            #print("No sensor associated with this room!")
         if sensor:
             context['sensor_id'] = sensor.serial
         else:
