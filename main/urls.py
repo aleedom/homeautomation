@@ -2,11 +2,14 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns('main.views',
         #homepage
-        url(r'^$', 'index', name='index'),
+        url(r'^$', ListView.as_view(
+                            model=Room,
+                            queryset=Room.objects.all(),
+                            context_object_name="rooms",
+                            template_name='main/room_list.html')),
         
         #room urls
-        url(r'^rooms$', 'room_list', name='room_list'),
-        url(r'^rooms/create$', 'room_create', name='room_create'),
+        url(r'^rooms/create$', RoomCreateView.as_view()),
         url(r'^rooms/(?P<id>[0-9]+)$', 'room_detail', name='room_detail'),
         url(r'^rooms/(?P<id>[0-9]+)/modify$', 'room_modify', name='room_modify'),
         url(r'^rooms/(?P<id>[0-9]+)/delete$', 'room_delete', name='room_delete'),
