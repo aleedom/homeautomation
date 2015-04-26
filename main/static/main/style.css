@@ -12,7 +12,7 @@
    =========================== */
    
 body {
-	background-image: url('bg.png');
+	background-image: url('img/bg.png');
 	color: #000305;
 	font-size: 87.5%; /* Base font size: 14px */
 	font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -21,11 +21,10 @@ body {
 	padding: 0;
 	text-align: left;
 	}
-	
 .body {
 	clear: both; 
 	margin: 0 auto; 
-	width: 70%;
+	width: 100%;
 }
 	
 /* ===========================
@@ -46,82 +45,35 @@ h2, h3, h4, h5, h6 {
 /* ===========================
    ======= Anchor style ====== 
    =========================== */
+
 a {
 	outline: 0;
 	}
-
 a img {
 	border: 0px; 
 	text-decoration: none;
 }
-
 a:link, a:visited {
 	color: #CF5C3F;
 	padding: 0 1px;
 	text-decoration: none;
 }
-
 a:hover, a:active {
 	background-color: #CF5C3F;
 	color: #fff;
 	text-decoration: none;
 }
 
-
-/* ===========================
-   ===== Left Navigation ===== 
-   =========================== */
-
-.content nav {
-	background: #666;
-	font-size: 1.143em;
-	height: 40px;
-	line-height: 30px;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-}
-.content nav ul {
-	list-style: none; 
-	margin: 0 auto;
-} 
-.content nav ul li {
-	float: left; 
-	display: block; 
-}
-.content nav a:link, .content nav a:visited {
-	color: #fff;
-	display: block;
-	height: 30px;
-	padding: 5px 23px;
-	text-decoration: none;
-}
-.content nav a:hover, .content nav a:active,.content nav .active a:link, .content nav .active a:visited {
-	background: #CF5C3F;
-	color: #fff;
-	text-shadow: none !important;
-}
-.content nav li a {
-	border-radius: 5px;
-	display: block;
-	width: 100px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-}
-
 /* ===========================
    ===== Main Navigation ===== 
    =========================== */
-   
+
 .mainHeader nav {
 	background: #666;
 	font-size: 1.143em;
 	height: 40px;
 	line-height: 30px;
-	margin: 0 auto 30px auto;
+	margin: 0 auto 15px auto;
 	text-align: center;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -130,11 +82,11 @@ a:hover, a:active {
 .mainHeader nav ul {
 	list-style: none; 
 	margin: 0 auto;
-} 
+}
 .mainHeader nav ul li {
 	float: left; 
 	display: inline; 
-}
+}  
 .mainHeader nav a:link, .mainHeader nav a:visited {
 	color: #fff;
 	display: inline-block;
@@ -146,17 +98,12 @@ a:hover, a:active {
 	background: #CF5C3F;
 	color: #fff;
 	text-shadow: none !important;
-}	
+} 
 .mainHeader nav li a {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-}
-.mainHeader img {
-	width: 30%;
-	height: auto;
-	margin: 3% 0;
-}
+} 
 
 /* ===========================
    ======= Content Area ====== 
@@ -168,9 +115,8 @@ a:hover, a:active {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-}
-
-.topcontent {
+}  
+.top content {
 	background-color: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -178,66 +124,59 @@ a:hover, a:active {
 	padding: 3% 5%;	
 	margin-bottom: 3%;
 }
-
-.bottomcontent {
-	background-color: #FFF;	
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;	
-	padding: 3% 5%;
-}
-
 .content {
-	width: 68%;
-	float: left;
+	width: 80%;
+	height: 655px;
+	float: right;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;	
-}
-
+} 
 .post-info {
 	font-style: italic;
 	color: #999;
 	font-size: 85%;
 }
+.content embed {
+    width: 100%;
+	height: 100%;
+	}
 
 /* ===========================
    ======== Sidebar ========== 
    =========================== */
 
-.top-sidebar {
-	width: 24%;
-	float: left;
-	margin-left: 2%;
+.left-sidebar {
+	width: 19%;
+	min-height: 200px;
+	float: right;
+	margin-right: 1%;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;	
-	background-color: #FFF;	
-	padding: 2% 3%;
 	margin-bottom: 2%;
 }
-
-.middle-sidebar {
-	width: 24%;
-	float: left;
-	margin-left: 2%;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;	
-	background-color: #FFF;	
-	padding: 2% 3%;
-	margin-bottom: 2%;
+.left-sidebar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
-
-.bottom-sidebar {
-	width: 24%;
-	float: left;
-	margin-left: 2%;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;	
-	background-color: #FFF;	
-	padding: 2% 3%;
+.left-sidebar a:link,.left-sidebar a:visited{
+    display: block;
+	font-weight: bold;
+	color: #fff;
+	background-color: #666;
+	text-align: center;
+	padding: 4px;
+	text-decoration: none;
+}
+.left-sidebar nav a:hover, .left-sidebar nav a:active,left-sidebar nav .active a:link, .left-sidebar nav .active a:visited {
+	background: #CF5C3F;
+	color: #fff;
+	text-shadow: none !important;
+} 
+.left-sidebar a:hover, .left-sidebar a:active {
+	background: #CF5C3F;
 }
 
 /* ===========================
@@ -256,7 +195,6 @@ a:hover, a:active {
 	-webkit-border-radius: 5px;	
 	color: #FFF;	
 }
-
 .mainFooter p {
 	width: 91%;
 	margin: 2% auto;
@@ -337,6 +275,7 @@ a:hover, a:active {
 		margin-top: 4%;
 		margin-bottom: 2%;
 	}
+
 	
 	.topcontent {
 		background-color: #FFF;
