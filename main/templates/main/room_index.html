@@ -1,12 +1,15 @@
 {% extends "main/base_room.html" %}
 
 {% block content %}
-<embed src="ThingSpeakMultichannel.html">
+{% include  "main/ThingSpeakMultichannel.html" %}
 {% endblock %}
 
 {% block left-nav %}
 	<li class="active"><a href="#">Summary</a></li>
-	<!-- loop through all rooms --!>
+	{% for room in rooms %}
+	<li> <a href="#">{{ room.name }}</a></li>
+	{% empty %} 
+	{% endfor %}
 	<li><a href="#">Add Room</a></li>
 {% endblock %}
 

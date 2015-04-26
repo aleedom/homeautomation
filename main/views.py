@@ -6,9 +6,11 @@ from main.models import *
 from main.forms import *
 
 
-def index(request):
-    context = {'name':'Andy'}
-    return render(request, 'main/index.html',context) 
+#class RoomIndexView(ListView):
+#    model = Room
+#    def get_context_data(self, **kwargs):
+#        context = super(RoomIndexView, self).get_context_data(**kwargs)
+        
 
 def room_detail(request,id):
         room = get_object_or_404(Room,id=id)

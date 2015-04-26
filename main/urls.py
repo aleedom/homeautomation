@@ -8,7 +8,7 @@ urlpatterns = patterns('main.views',
                             model=Room,
                             queryset=Room.objects.all(),
                             context_object_name="rooms",
-                            template_name='main/room_list.html')),
+                            template_name='main/room_index.html')),
         
         #room urls
         #url(r'^rooms/create$', RoomCreateView.as_view()),

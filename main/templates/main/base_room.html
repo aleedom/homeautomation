@@ -14,10 +14,10 @@
 	<header class="mainHeader">
 		<nav><ul>
 		{% block main-nav %}
-			<li class="active"><a href="/">Home</a></li>
-			<li><a href="/rooms">Rooms</a></li>
-			<li><a href="#">Blog</a></li>
-			<li><a href="#">Contact</a></li>
+			<li class="active"><a href="/">Rooms</a></li>
+			<li><a href="#">Vents</a></li>
+			<li><a href="#">Calendar</a></li>
+			<li><a href="#">Data</a></li>
 		{% endblock %}
 		</ul></nav>
 	</header>
@@ -28,10 +28,12 @@
 			{% endblock %}
 		</div>
 		<div class="left-sidebar">
+		<nav><ul>
 			{% block left-nav %}
 				<li class="active"><a href="#">Summary</a></li>
 				<li><a href="#">Add Room</a></li>
 			{% endblock %}
+		</ul></nav>
 		</div>
 	</div>
 	
