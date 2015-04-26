@@ -9,14 +9,17 @@
 {% endblock %}
 {% block content %}
 <h2>Room List</h2>
-{% if room_list %}
-	<ul>
-	{% for room in room_list %}
-	<li><a href="/rooms/{{ room.id }}">{{ room.name }}</a></li>
-	{% endfor %}
-	</ul>
+{% if rooms %}
+<div class=leftNav>
+	<!--<nav><ul>
+		<li class="active"><a href="/">All Rooms</a></li>
+		<li><a href="#">Room 1</a></li>
+		<li><a href="#">Room 2</a></li>
+		<li><a href="#">Room 3</a></li>
+		<li><a href="#">Create</a></li>
+	</ul></nav> --!>
+</div>
 {% else %}	
 	<p>No Rooms have been created yet.</p>
 {% endif %}
-<button type="button" onclick="location.href='/rooms/create'">Create Room</button>
 {% endblock %}

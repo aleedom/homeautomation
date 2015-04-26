@@ -73,12 +73,11 @@ a:hover, a:active {
    =========================== */
 
 .content nav {
-	background: #666;
+	/*background: #666;*/
 	font-size: 1.143em;
 	height: 40px;
 	line-height: 30px;
-	margin: 0;
-	padding: 0;
+	margin: 0 auto 30px auto;
 	text-align: left;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -90,11 +89,11 @@ a:hover, a:active {
 } 
 .content nav ul li {
 	float: left; 
-	display: block; 
+	display: inline; 
 }
 .content nav a:link, .content nav a:visited {
 	color: #fff;
-	display: block;
+	display: inline-block;
 	height: 30px;
 	padding: 5px 23px;
 	text-decoration: none;
@@ -103,13 +102,6 @@ a:hover, a:active {
 	background: #CF5C3F;
 	color: #fff;
 	text-shadow: none !important;
-}
-.content nav li a {
-	border-radius: 5px;
-	display: block;
-	width: 100px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
 }
 
 /* ===========================
@@ -142,16 +134,19 @@ a:hover, a:active {
 	padding: 5px 23px;
 	text-decoration: none;
 }
-.mainHeader nav a:hover, .mainHeader nav a:active,.mainHeader nav .active a:link, .mainHeader nav .active a:visited {
+.mainHeader nav a:hover, .mainHeader nav a:active,
+.mainHeader nav .active a:link, .mainHeader nav .active a:visited {
 	background: #CF5C3F;
 	color: #fff;
 	text-shadow: none !important;
-}	
+}
+	
 .mainHeader nav li a {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
+
 .mainHeader img {
 	width: 30%;
 	height: auto;

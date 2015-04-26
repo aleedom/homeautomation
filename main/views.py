@@ -10,11 +10,6 @@ def index(request):
     context = {'name':'Andy'}
     return render(request, 'main/index.html',context) 
 
-def room_list(request):
-    room_list = Room.objects.all()
-    context = {'room_list': room_list}
-    return render(request, 'main/room_list.html', context)
-
 def room_detail(request,id):
         room = get_object_or_404(Room,id=id)
         context = {}
@@ -48,9 +43,18 @@ def room_detail(request,id):
             context['sensor_id'] = "No temperature Sensor associated with this room"
         return render(request, 'main/room_detail.html',context)
 
+class RoomCreate(CreateView):
+    form_class = RoomForm
+    success_url = "/rooms"
+    template_name = "main/room_create.html"
+    def form_valid(self, form):
+        print("Form is valid")
+        print(request.POST['name'],request.POST['sensor_id'])
+        return super(RoomCreateView, self).form_valid(form)
+
+"""
 def room_create(request):
     if request.method == "POST":
-        
         form = RoomForm(request.POST)
         print(request.POST['name'],request.POST['sensor_id'])
         if(form.is_valid()):
@@ -75,7 +79,7 @@ def room_create(request):
         return render_to_response('main/room_create.html',
                 {'form':form},
                 context_instance=RequestContext(request))
-
+"""
 def room_modify(request,id):
     room_instance = get_object_or_404(Room, id=id)
     form = RoomForm(request.POST or None)
