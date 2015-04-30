@@ -7,7 +7,7 @@ class RoomForm(ModelForm):
         model = Room
         fields = ('name',)
 """
-class RoomForm(forms.Form):
+class RoomForm(forms.ModelForm):
     sensor_id = forms.ModelChoiceField(
             queryset=Sensor.objects.filter(room_id=None),
             empty_label="No Sensor",
@@ -16,3 +16,7 @@ class RoomForm(forms.Form):
     class Meta:
         model = Room
         fields = ('name',)
+
+    #def save(self, commit=True):
+    #    m = super(RoomForm, self).save(commit=True)
+        #print(m.name, m.id)

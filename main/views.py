@@ -17,11 +17,12 @@ class RoomNavMixin(object):
 
 
 class RoomIndex(RoomNavMixin, TemplateView):
-    """Home Page, displays nav menue to go to differen rooms and graphs of all"""
+    """Home Page, displays nav menue to go to different rooms and graphs of all"""
     template_name="main/room_index.html"
 
 
 class RoomDetail(RoomNavMixin, DetailView):
+    """Displays individual details of a singl room with a graph of only that rooms current sensor"""
     model = Room
     context_object_name = "current_room"
     def get_context_data(self,**kwargs):
@@ -35,13 +36,10 @@ class RoomDetail(RoomNavMixin, DetailView):
 
 
 class RoomCreate(RoomNavMixin, CreateView):
+    """Displays a form which allows the user to create a new room"""
     form_class = RoomForm
     success_url = "/"
     template_name = "main/room_create.html"
-    def form_valid(self, form):
-        print("Form is valid")
-        print(request.POST['name'],request.POST['sensor_id'])
-        return super(RoomCreateView, self).form_valid(form)
 
 """
 def room_create(request):
