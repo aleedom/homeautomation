@@ -13,10 +13,14 @@ class RoomForm(forms.ModelForm):
             empty_label="No Sensor",
             required=False,
             )
+    def save(self, commit=True):
+        instance = super(RoomForm, self).save(commit=True)
+        sensor = Sensor.objects.get(serial=self.cleaned_data['sensor_id'])
+        sensor.room_id = instance
+        sensor.save()
+        return instance
+
     class Meta:
         model = Room
         fields = ('name',)
 
-    #def save(self, commit=True):
-    #    m = super(RoomForm, self).save(commit=True)
-        #print(m.name, m.id)
