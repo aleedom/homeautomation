@@ -14,10 +14,49 @@ class RoomForm(forms.ModelForm):
             required=False,
             )
     def save(self, commit=True):
+        """overiding save so that we can create/update sensor relationships"""
+
+        #first need to create the room so we can reference it
         instance = super(RoomForm, self).save(commit=True)
-        sensor = Sensor.objects.get(serial=self.cleaned_data['sensor_id'])
-        sensor.room_id = instance
-        sensor.save()
+
+        #need to get both old sensor(in the case we are updating) and new sensor
+        try:
+            #try and get old sensor
+            old_sensor = Sensor.objects.get(room_id=instance)
+        except:
+            old_sensor = False
+
+        try:
+            #try to get the new sensor
+            new_sensor = Sensor.objects.get(serial=self.cleaned_data['sensor_id'])
+        except:
+            new_sensor = False
+            #selected sensor was null
+        if not old_sensor and not new_sensor:
+            #sensor associated with room is going from NULL to NULL
+            pass
+        elif not old_sensor and new_sensor:
+            #sensor associated with room is going from NULL to a sensor
+            #no old sensor to update, only need to update new_sensor
+            new_sensor.room_id = instance
+            new_sensor.save()
+        elif old_sensor and not new_sensor:
+            #sensor associated with room is going from something to NULL
+            #reset old_sensor to null
+            old_sensor.room_id = None
+            old_sensor.save()
+        elif old_sensor and new_sensor and not(old_sensor == new_sensor):
+            if not old_sensor == new_sensor:
+                #sensor associated with room is changing from one sensor to another
+                #need to reset old to NULL
+                old_sensor.room_id = None
+                old_sensor.save()
+                #also need to set new to the room instance
+                new_sensor.room_id = instance
+                new_sensor.save()
+            else:
+                #sensor associated with room is not changing
+                pass
         return instance
 
     class Meta:

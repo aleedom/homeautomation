@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from main.models import * 
 from main.forms import *
@@ -41,34 +41,14 @@ class RoomCreate(RoomNavMixin, CreateView):
     success_url = "/"
     template_name = "main/room_create.html"
 
-"""
-def room_create(request):
-    if request.method == "POST":
-        form = RoomForm(request.POST)
-        print(request.POST['name'],request.POST['sensor_id'])
-        if(form.is_valid()):
-            new_room = Room(
-                    name=request.POST['name'],
-                    temperature_high=None, 
-                    temperature_low=None, 
-                    temperature_current=None,
-                    humidity_current = None,
-                    vent_state=None
-                    )
-            new_room.save()
-            if request.POST['sensor_id'] == None:
-                return redirect('/rooms') 
-            else:
-                sensor = Sensor.objects.get(serial=request.POST['sensor_id'])
-                sensor.room_id = new_room
-                sensor.save()
-                return redirect('/rooms')
-    else:
-        form = RoomForm()
-        return render_to_response('main/room_create.html',
-                {'form':form},
-                context_instance=RequestContext(request))
-"""
+
+class RoomUpdate(RoomNavMixin, UpdateView):
+    model = Room
+    form_class = RoomForm
+    success_url = "/"
+    template_name = "main/room_update.html"
+
+
 def room_modify(request,id):
     room_instance = get_object_or_404(Room, id=id)
     form = RoomForm(request.POST or None)

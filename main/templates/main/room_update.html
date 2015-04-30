@@ -1,0 +1,20 @@
+{% extends "main/base_room.html"%}
+
+{% block content %}
+<h1> Create A Room </h1>
+<div class="room-form">
+	<form action="" method="post">{% csrf_token %}
+		{{form.as_p}}
+		<input type="submit" value="Update" />
+	</form>
+</div>
+{% endblock %}
+
+{% block left-nav %} 
+	<li><a href="/">Summary</a></li>
+	{% for room in room_list %}
+	<li> <a href="/rooms/{{room.id}}">{{ room.name }}</a></li>
+	{% empty %}
+	{% endfor %}
+	<li class="active"><a href="/rooms/create">Add Room</a></li>
+{% endblock %}

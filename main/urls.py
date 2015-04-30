@@ -9,6 +9,6 @@ urlpatterns = patterns('main.views',
         #room urls
         url(r'^rooms/create$', RoomCreate.as_view()),
         url(r'^rooms/(?P<pk>\d+)$', RoomDetail.as_view()),
-        url(r'^rooms/(?P<pk>\d+)/modify$', 'room_modify'),
+        url(r'^rooms/(?P<pk>\d+)/update$', RoomUpdate.as_view()),
         url(r'^rooms/(?P<pk>\d+)/delete$', 'room_delete'),
 )
