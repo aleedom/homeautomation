@@ -1,53 +1,42 @@
 from django.shortcuts import * 
 from django.template import RequestContext
 from django.http import HttpResponse
+from django.views.generic import TemplateView, ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 
 from main.models import * 
 from main.forms import *
 
+class RoomNavMixin(object):
+    """Adds a list of the created rooms to the context"""
+    def get_context_data(self, **kwargs):
+        context = super(RoomNavMixin, self).get_context_data(**kwargs)
+        context['room_list'] = Room.objects.all()
+        return context
 
-#class RoomIndexView(ListView):
-#    model = Room
-#    def get_context_data(self, **kwargs):
-#        context = super(RoomIndexView, self).get_context_data(**kwargs)
-        
 
-def room_detail(request,id):
-        room = get_object_or_404(Room,id=id)
-        context = {}
-        context['room_name'] = room.name
-        context['id'] = id
-        if room.temperature_high:
-            context['temp_high'] = room.temperature_high.data
-            context['temp_high_time'] = room.temperature_high.time
-        else:
-            context['temp_high'] = "Highest temperature not available"
+class RoomIndex(RoomNavMixin, TemplateView):
+    """Home Page, displays nav menue to go to differen rooms and graphs of all"""
+    template_name="main/room_index.html"
 
-        if room.temperature_low:
-            context['temp_low'] = room.temperature_low.data
-            context['temp_low_time'] = room.temperature_low.time
-        else:
-            context['temp_low'] = "Lowest temperature not available"
 
-        if room.temperature_current:
-            context['temp_current'] = room.temperature_current.data
-            context['temp_current_time'] = room.temperature_current.time
-        else:
-            context['temp_current'] = "Current temperature not available"
+class RoomDetail(RoomNavMixin, DetailView):
+    model = Room
+    context_object_name = "current_room"
+    def get_context_data(self,**kwargs):
+        context = super(RoomDetail, self).get_context_data(**kwargs)
         try:
-            sensor = Sensor.objects.get(room_id=room)
-        except:
-            sensor = False
-            #print("No sensor associated with this room!")
-        if sensor:
+            sensor = Sensor.objects.get(room_id=self.kwargs['pk'])
             context['sensor_id'] = sensor.serial
-        else:
-            context['sensor_id'] = "No temperature Sensor associated with this room"
-        return render(request, 'main/room_detail.html',context)
+        except:
+            context['sensor_id'] = 'None'
+        return context
 
-class RoomCreate(CreateView):
+
+class RoomCreate(RoomNavMixin, CreateView):
     form_class = RoomForm
-    success_url = "/rooms"
+    success_url = "/"
     template_name = "main/room_create.html"
     def form_valid(self, form):
         print("Form is valid")
