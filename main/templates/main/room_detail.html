@@ -18,9 +18,9 @@
 	<li><a href="/">Summary</a></li>
 	{% for room in room_list %}
 		{% if current_room.name == room.name %}
-			<li class="active"> <a href="#">{{room.name }}</a></li>
+		<li class="active"> <a href="/rooms/{{room.id}}">{{room.name }}</a></li>
 		{% else %}
-			<li> <a href="#">{{room.name }}</a></li>
+		<li> <a href="/rooms/{{room.id}}">{{room.name }}</a></li>
 		{% endif %}
 	{% empty %}
 	{% endfor %}
