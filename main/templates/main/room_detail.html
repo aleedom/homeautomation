@@ -1,19 +1,28 @@
-{% extends "main/base.html" %}
-{% block main-nav %}
-	<nav><ul>
-		<li><a href="/">Home</a></li>
-		<li class="active"><a href="/rooms">Rooms</a></li>
-		<li><a href="#">Blog</a></li>
-		<li><a href="#">Contact</a></li>
-	</ul></nav>
-{% endblock %}
+{% extends "main/base_room.html" %}
 {% block content %}
-	<h1> {{ room_name }} </h1>
-	<p><b><u>Current Temperature:</u></b> {{temp_current}} {{temp_current_time}}</p>
-	<p><b><u>Highest recorded Temperature:</u></b> {{temp_high}} {{temp_high_time}}</p>
-	<p><b><u>Lowest Recorded Temperature:</u></b> {{temp_low}} {{temp_low_time}}</p>
-	<p><b><u>Sensor_id:</u></b> {{sensor_id}}</p>
-	<button type="button" onclick="location.href='/rooms/{{id}}/modify'">Modify</button>
-	<button type="button" onclick="location.href='/rooms/{{id}}/delete'">Delete</button>
+	<div class="detail_left">
+		<h1> {{ current_room.name }} </h1>
+		<p><b><u>Current Temperature:</u></b> {{temp_current}}</p>
+		<p><b><u>Highest recorded Temperature:</u></b> {{temp_high}}</p>
+		<p><b><u>Lowest Recorded Temperature:</u></b> {{temp_low}}</p>
+		<p><b><u>Sensor_id:</u></b> {{sensor_id}}</p>
+		<button type="button" onclick="location.href='/rooms/{{id}}/modify'">Modify</button>
+		<button type="button" onclick="location.href='/rooms/{{id}}/delete'">Delete</button>
+	</div>
+	<div class="detail_right">
+	</div>
 {% endblock %}
 
+
+{% block left-nav %}
+	<li><a href="/">Summary</a></li>
+	{% for room in room_list %}
+		{% if current_room.name == room.name %}
+			<li class="active"> <a href="#">{{room.name }}</a></li>
+		{% else %}
+			<li> <a href="#">{{room.name }}</a></li>
+		{% endif %}
+	{% empty %}
+	{% endfor %}
+	<li><a href="/rooms/create">Add Room</a></li>
+{% endblock %}
