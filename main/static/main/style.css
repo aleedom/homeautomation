@@ -125,16 +125,24 @@ a:hover, a:active {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;	
 }
-.detail_left {
+.content_leftcolumn {
 	float: left;
 	width: 25%;
 	background-color: #fff;
-	text-align: center;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 } 
-.detail_right {
+.content_leftcolumn h1 {
+	text-align: center;
+}
+.content_leftcolumn p {
+    margin-left: 2.5%;
+}
+.button_holder {
+    text-align: center;
+}
+.content_rightcolumn {
 	float: left;
     width: 75%;
 	background-color: #ff;
@@ -142,17 +150,6 @@ a:hover, a:active {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }	
-.detail_left h1 {
-	text-align: center;
-}
-.detail_left p, .detail_right p{
-	margin-left: 2.5%;
-}
-.detail_left button {
-    margin-left: auto;
-	margin-right: auto;
-	display: inline-block;
-}
 /* ===========================
    ======= SidebarNav ======== 
    =========================== */

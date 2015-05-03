@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse
 
 from main.models import * 
 from main.forms import *
@@ -12,7 +13,7 @@ class RoomNavMixin(object):
     """Adds a list of the created rooms to the context"""
     def get_context_data(self, **kwargs):
         context = super(RoomNavMixin, self).get_context_data(**kwargs)
-        context['room_list'] = Room.objects.all()
+        context['room_list'] = Room.objects.all().order_by('name')
         return context
 
 
@@ -38,14 +39,12 @@ class RoomDetail(RoomNavMixin, DetailView):
 class RoomCreate(RoomNavMixin, CreateView):
     """Displays a form which allows the user to create a new room"""
     form_class = RoomForm
-    success_url = "/"
     template_name = "main/room_create.html"
 
 
 class RoomUpdate(RoomNavMixin, UpdateView):
     model = Room
     form_class = RoomForm
-    success_url = "/"
     template_name = "main/room_update.html"
 
 
@@ -53,4 +52,9 @@ class RoomDelete(RoomNavMixin, DeleteView):
     model = Room
     success_url = "/"
     template_name = "main/room_delete.html"
-
+    def post(self, request, *args, **kwargs):
+        if "Cancel" in request.POST:
+            url = "/"
+            return HttpResponseRedirect(url)
+        else:
+            return super(RoomDelete, self).post(request, *args, **kwargs)

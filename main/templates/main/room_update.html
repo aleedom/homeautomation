@@ -1,12 +1,17 @@
+<!--room_update.html--!>
 {% extends "main/base_room.html"%}
 
 {% block content %}
-<h1> Edit Room </h1>
-<div class="room-form">
-	<form action="" method="post">{% csrf_token %}
-		{{form.as_p}}
-		<input type="submit" value="Update" />
-	</form>
+<div class="content_leftcolumn">
+	<h1> Edit Room </h1>
+	<div class="room-form">
+		<form action="" method="post">{% csrf_token %}
+			{{form.as_p}}
+			<div class="button_holder">
+			<input type="submit" value="Update" />
+			</div>
+		</form>
+	</div>
 </div>
 {% endblock %}
 

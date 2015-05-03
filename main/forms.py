@@ -18,7 +18,6 @@ class RoomForm(forms.ModelForm):
 
         #first need to create the room so we can reference it
         instance = super(RoomForm, self).save(commit=True)
-
         #need to get both old sensor(in the case we are updating) and new sensor
         try:
             #try and get old sensor
@@ -28,9 +27,7 @@ class RoomForm(forms.ModelForm):
 
         try:
             #try to get the new sensor
-            s_id = self.cleaned_data['sensor_id'].split(" ")[0]
-            print("s_id: " + s_id)
-            new_sensor = Sensor.objects.get(serial=self.cleaned_data['sensor_id'])
+            new_sensor = Sensor.objects.get(serial=self.cleaned_data['sensor_id'].serial)
         except:
             new_sensor = False
             #selected sensor was null

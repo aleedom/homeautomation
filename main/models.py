@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 	
@@ -12,6 +13,8 @@ class Room(models.Model):
         vent_state = models.IntegerField(null=True,default=None)
         def _unicode__(self):
             return self.name
+        def get_absolute_url(self):
+            return reverse('room_detail', kwargs = {'pk':self.pk})
 
 class Sensor(models.Model):
 	#serial number of the xbee which the actual sensor is attached to

@@ -1,11 +1,12 @@
 {% extends "main/base_room.html"%}
 
 {% block content %}
-<h1> Create A Room </h1>
+<h1> Delete Room </h1>
 <div class="room-form">
 	<form action="" method="post">{% csrf_token %}
 		<p>Are you sure you want to delete "{{object}}"?</p>
 		<input type="submit" value="Confirm" />
+		<input type="submit" name="Cancel" value="Cancel" />
 	</form>
 </div>
 {% endblock %}

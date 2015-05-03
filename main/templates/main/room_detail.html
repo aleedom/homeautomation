@@ -1,18 +1,21 @@
+<!--room_detail.html--!>
 {% extends "main/base_room.html" %}
+
 {% block content %}
-	<div class="detail_left">
+	<div class="content_leftcolumn">
 		<h1> {{ current_room.name }} </h1>
 		<p><b><u>Current Temperature:</u></b> {{temp_current}}</p>
 		<p><b><u>Highest recorded Temperature:</u></b> {{temp_high}}</p>
 		<p><b><u>Lowest Recorded Temperature:</u></b> {{temp_low}}</p>
 		<p><b><u>Sensor_id:</u></b> {{sensor_id}}</p>
-		<button type="button" onclick="location.href='/rooms/{{current_room.id}}/update'">Edit</button>
-		<button type="button" onclick="location.href='/rooms/{{current_room.id}}/delete'">Delete</button>
+		<div class="button_holder">
+			<button type="button" onclick="location.href='/rooms/{{current_room.id}}/update'">Edit</button>
+			<button type="button" onclick="location.href='/rooms/{{current_room.id}}/delete'">Delete</button>
+		</div>
 	</div>
-	<div class="detail_right">
+	<div class="content_rightcolumn">
 	</div>
 {% endblock %}
-
 
 {% block left-nav %}
 	<li><a href="/">Summary</a></li>
