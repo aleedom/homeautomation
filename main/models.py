@@ -22,8 +22,11 @@ class Sensor(models.Model):
                 default=None,
                 on_delete=models.SET_NULL)
         def __unicode__(self):
-            return self.serial
-
+            str = ""
+            if self.room_id:
+                return '{serial} ({Name})'.format(serial=self.serial, Name=self.room_id.name)
+            else:
+                return '{serial} (None)'.format(serial=self.serial)
 class Data(models.Model):
 	room_id = models.ForeignKey('Room')
 	data = models.DecimalField(max_digits=6,decimal_places=3)

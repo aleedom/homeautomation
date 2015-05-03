@@ -9,7 +9,7 @@ class RoomForm(ModelForm):
 """
 class RoomForm(forms.ModelForm):
     sensor_id = forms.ModelChoiceField(
-            queryset=Sensor.objects.filter(room_id=None),
+            queryset=Sensor.objects.all(),
             empty_label="No Sensor",
             required=False,
             )
@@ -28,35 +28,37 @@ class RoomForm(forms.ModelForm):
 
         try:
             #try to get the new sensor
+            s_id = self.cleaned_data['sensor_id'].split(" ")[0]
+            print("s_id: " + s_id)
             new_sensor = Sensor.objects.get(serial=self.cleaned_data['sensor_id'])
         except:
             new_sensor = False
             #selected sensor was null
         if not old_sensor and not new_sensor:
             #sensor associated with room is going from NULL to NULL
+            print("Old: Nothing, New:Nothing")
             pass
         elif not old_sensor and new_sensor:
             #sensor associated with room is going from NULL to a sensor
             #no old sensor to update, only need to update new_sensor
+            print("Old: Nothing, New:Nothing")
             new_sensor.room_id = instance
             new_sensor.save()
         elif old_sensor and not new_sensor:
             #sensor associated with room is going from something to NULL
             #reset old_sensor to null
+            print("Old: Something, New:Nothing")
             old_sensor.room_id = None
             old_sensor.save()
         elif old_sensor and new_sensor and not(old_sensor == new_sensor):
-            if not old_sensor == new_sensor:
-                #sensor associated with room is changing from one sensor to another
-                #need to reset old to NULL
-                old_sensor.room_id = None
-                old_sensor.save()
-                #also need to set new to the room instance
-                new_sensor.room_id = instance
-                new_sensor.save()
-            else:
-                #sensor associated with room is not changing
-                pass
+            #sensor associated with room is changing from one sensor to another
+            #need to reset old to NULL
+            print("Old: Something, New:Something")
+            old_sensor.room_id = None
+            old_sensor.save()
+            #also need to set new to the room instance
+            new_sensor.room_id = instance
+            new_sensor.save()
         return instance
 
     class Meta:
